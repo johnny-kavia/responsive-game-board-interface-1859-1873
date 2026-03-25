@@ -1,0 +1,271 @@
+:root {
+  --bg: #f9fafb;
+  --surface: #ffffff;
+  --text: #111827;
+  --muted: #6b7280;
+
+  --border: rgba(17, 24, 39, 0.10);
+  --shadow: 0 10px 30px rgba(17, 24, 39, 0.10);
+
+  --primary: #3B82F6;
+  --primarySoft: rgba(59, 130, 246, 0.14);
+
+  --amber: #F59E0B;
+  --amberSoft: rgba(245, 158, 11, 0.18);
+
+  --focus: rgba(59, 130, 246, 0.45);
+}
+
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+
+body {
+  margin: 0;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica,
+    Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  color: var(--text);
+  background:
+    radial-gradient(900px 500px at 25% 0%, rgba(59, 130, 246, 0.12), transparent 60%),
+    radial-gradient(700px 450px at 90% 25%, rgba(245, 158, 11, 0.10), transparent 55%),
+    var(--bg);
+}
+
+/* App layout */
+.appRoot {
+  min-height: 100%;
+  display: grid;
+  place-items: center;
+  padding: 24px 16px;
+}
+
+.appMain {
+  width: min(980px, 100%);
+  display: grid;
+  gap: 14px;
+}
+
+.appHeader {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 6px 4px;
+}
+
+.appTitle {
+  margin: 0;
+  letter-spacing: -0.02em;
+  font-size: 28px;
+  line-height: 1.15;
+}
+
+.appSubtitle {
+  margin: 6px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.appCard {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  border-radius: 16px;
+  padding: 18px;
+}
+
+.appFooter {
+  padding: 2px 4px 0;
+  display: flex;
+  justify-content: center;
+}
+
+.appFooterText {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+/* Tic tac toe */
+.tttRoot {
+  display: grid;
+  gap: 16px;
+}
+
+.tttTop {
+  display: grid;
+  gap: 12px;
+}
+
+.tttStatus {
+  display: flex;
+  justify-content: center;
+}
+
+.tttStatusPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 999px;
+  font-weight: 650;
+  background: rgba(17, 24, 39, 0.03);
+  border: 1px solid var(--border);
+}
+
+.tttStatusPill.isWin {
+  background: var(--primarySoft);
+  border-color: rgba(59, 130, 246, 0.35);
+}
+
+.tttStatusPill.isDraw {
+  background: var(--amberSoft);
+  border-color: rgba(245, 158, 11, 0.35);
+}
+
+.tttScores {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.scoreCard {
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 10px 12px;
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.scoreLabel {
+  font-size: 12px;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.scoreValue {
+  margin-top: 4px;
+  font-size: 22px;
+  font-weight: 750;
+}
+
+.tttBoardWrap {
+  display: grid;
+  place-items: center;
+}
+
+/* Responsive board: square area scales with viewport */
+.tttBoard {
+  width: min(420px, 92vw);
+  aspect-ratio: 1 / 1;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  padding: 12px;
+  border-radius: 18px;
+  background: linear-gradient(180deg, rgba(59, 130, 246, 0.10), rgba(255, 255, 255, 0.0));
+  border: 1px solid rgba(59, 130, 246, 0.18);
+}
+
+.square {
+  appearance: none;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.95);
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 3px 12px rgba(17, 24, 39, 0.06);
+  transition: transform 120ms ease, border-color 120ms ease, background 120ms ease;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.square:hover {
+  transform: translateY(-1px);
+  border-color: rgba(59, 130, 246, 0.35);
+  background: rgba(59, 130, 246, 0.04);
+}
+
+.square:disabled {
+  cursor: not-allowed;
+  opacity: 1;
+}
+
+.square.isFilled:hover {
+  transform: none;
+  background: rgba(255, 255, 255, 0.95);
+  border-color: var(--border);
+}
+
+.square:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--focus);
+}
+
+.square.isWinning {
+  border-color: rgba(245, 158, 11, 0.65);
+  background: rgba(245, 158, 11, 0.12);
+  box-shadow: 0 10px 26px rgba(245, 158, 11, 0.20);
+}
+
+.squareMark {
+  font-size: clamp(34px, 7.5vw, 64px);
+  font-weight: 850;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.squareMark.isX {
+  color: var(--primary);
+}
+
+.squareMark.isO {
+  color: var(--amber);
+}
+
+.tttControls {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn {
+  border-radius: 12px;
+  padding: 10px 14px;
+  font-weight: 700;
+  border: 1px solid var(--border);
+  background: #fff;
+  cursor: pointer;
+  transition: transform 120ms ease, border-color 120ms ease, background 120ms ease;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+  border-color: rgba(17, 24, 39, 0.20);
+}
+
+.btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--focus);
+}
+
+.btnPrimary {
+  background: var(--primary);
+  color: white;
+  border-color: rgba(59, 130, 246, 0.55);
+}
+
+.btnPrimary:hover {
+  background: #2f74e6;
+  border-color: rgba(59, 130, 246, 0.75);
+}
+
+.btnGhost {
+  background: rgba(255, 255, 255, 0.6);
+}
+
+/* Mobile tweaks */
+@media (max-width: 420px) {
+  .appCard { padding: 14px; }
+  .tttBoard { gap: 8px; padding: 10px; }
+  .square { border-radius: 12px; }
+}
